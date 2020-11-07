@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/Software-Natives-OSS/transferlua/issues"
   },
-  "homepage": "https://github.com/Software-Natives-OSS/transferlua"
+  "homepage": "https://github.com/Software-Natives-OSS/transferlua",
+  "dependencies": {
+    "ffi-napi": "^3.0.1"
+  }
 }
