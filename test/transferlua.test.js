@@ -9,7 +9,7 @@ describe('Test TransferLua class', () => {
 
     before(() => {
         // Ensure the target is in an "openable state"
-        const transfer = new transferLua.LuaTransfer(indelTestTarget, {force: true});
+        const transfer = new transferLua.LuaTransfer(indelTestTarget, { force: true });
         transfer.close()
     });
 
@@ -53,7 +53,7 @@ describe('Test TransferLua class', () => {
 
     it('Should be able to connect with the `force` flag set even if someone else already connected', () => {
         this.transfer = new transferLua.LuaTransfer(indelTestTarget);
-        this.transfer = new transferLua.LuaTransfer(indelTestTarget, {force: true});
+        this.transfer = new transferLua.LuaTransfer(indelTestTarget, { force: true });
         assert.strictEqual(this.transfer.opened(), true, "Expect to be opened");
     });
 

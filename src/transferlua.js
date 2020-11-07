@@ -4,8 +4,7 @@ const wrapper = require("./wrapper");
 const ref = require("ref-napi");
 
 
-
-const LuaTransfer = function(targetName, options={}) {
+const LuaTransfer = function (targetName, options = {}) {
     const endpoint = options.endpoint || 'Default';
     const force = options.force || false;
 
@@ -13,11 +12,11 @@ const LuaTransfer = function(targetName, options={}) {
     this._endpoint = endpoint;
     this._handle = null;
 
-    this.opened = function() {
+    this.opened = function () {
         return this._handle != null
     }
 
-    this.close = function() {
+    this.close = function () {
         if (this.opened()) {
             const err = wrapper.close(this._handle)
             this._handleErr(err, 'LuaTransfer.close()')
@@ -25,13 +24,13 @@ const LuaTransfer = function(targetName, options={}) {
         }
     }
 
-    this._handleErr = function(err, operation) {
+    this._handleErr = function (err, operation) {
         if (err) {
             throw new Error(`LuaTransfer error in '${operation}': ${err.toString(16)}`)
         }
     }
 
-    this._open = function(force) {
+    this._open = function (force) {
         const openFct = force ? wrapper.forceOpen : wrapper.open;
         const handleRef = ref.alloc('size_t', -1/*initial value*/)
         const err = openFct(this._targetName, this._endpoint, handleRef, null)
