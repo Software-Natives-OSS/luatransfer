@@ -46,4 +46,11 @@ As mentioned, only the "thus far required" functionality is in place. Namely, th
 
 - "Error writer" callback not yet implemented (thus, the ability to get 'good error reporting' not given yet)
 - Convertion from error codes (uint64) into human readable text is yet missing
-- Test coverage for various options of `SendFile` and `SendChunk` not yet given (and also not manually tested yet)
+- Test coverage for various options of `sendFile` and `sendChunk` not yet given (and also not manually tested yet)
+- TS types could be improved for the various optional arguments
+
+## Why not in TS?
+
+This module is so small that I felt to write it in JavaScript rather than TypeScript, although I like the latter more. I feel like the overhead is smaller for JS, since no transpiling, etc. is required.
+
+Note that if someone would convert it to TS, such a contribution would be welcome.
