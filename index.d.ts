@@ -6,8 +6,8 @@ export class TransferLua {
     close(): void;
     sendFile(fileLocation: string, stateName: string, options: any): void;
     sendChunk(scriptName: string, stateName: string, luaChunk: string, options: any): void;
-};
+}
 
-export function combineOptions(...args: string): string;
+export function combineOptions(...args: string[]): string;
 export const OPTION_EXECUTE: string;
 export const OPTION_COMPILE_BEFORE: string;
