@@ -1,0 +1,23 @@
+{
+  "name": "@softwarenatives/luatransfer",
+  "version": "1.0.0",
+  "description": "Wrapper for Indel's LuaTransfer C-library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/raphael.zulliger/npmluatransfer.git"
+  },
+  "keywords": [
+    "Indel",
+    "lua"
+  ],
+  "author": "Raphael Zulliger <zulliger@software-natives.ch>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/raphael.zulliger/npmluatransfer/issues"
+  },
+  "homepage": "https://gitlab.com/raphael.zulliger/npmluatransfer#readme"
+}
