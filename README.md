@@ -18,22 +18,32 @@ npm i @softwarenatives/transferlua
 
 ## Basic usage
 
+Assuming there is a `helloworld.js` in the current working dir, create something like this:
+
 ```js
 const transferLua = require("@softwarenatives/transferlua");
-
-const indelTargetName = 'TargetName';
+ 
+const indelTargetName = 'IndelTargetName'; // E.g. "Net251"
 const luaStateName = 'Machine';
 const options = transferLua.combineOptions(
     transferLua.OPTION_EXECUTE);
-
-const transfer = new transferLua.LuaTransfer(indelTargetName);
-transfer.sendFile(getFileLocation('helloworld.lua'), luaStateName, { options: options });
+ 
+const transfer = new transferLua.LuaTransfer(indelTargetName, { force: true });
+transfer.sendFile('./helloworld.lua', luaStateName, { options: options });
 transfer.close()
 ```
+
+## Supported platforms
+
+This wrapper should support all platforms on which Indel's library is available. At the time of this writing, these are
+
+- Windows
+- Linux
 
 ## TODO
 
 As mentioned, only the "thus far required" functionality is in place. Namely, the following is missing:
 
 - "Error writer" callback not yet implemented (thus, the ability to get 'good error reporting' not given yet)
+- Convertion from error codes (uint64) into human readable text is yet missing
 - Test coverage for various options of `SendFile` and `SendChunk` not yet given (and also not manually tested yet)
