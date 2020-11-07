@@ -1,14 +1,14 @@
 {
-  "name": "@softwarenatives/luatransfer",
+  "name": "@softwarenatives/transferlua",
   "version": "1.0.1",
-  "description": "Wrapper for Indel's LuaTransfer C-library",
+  "description": "Wrapper for Indel's TransferLua C-library",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:Software-Natives-OSS/luatransfer.git"
+    "url": "git@github.com:Software-Natives-OSS/transferlua.git"
   },
   "keywords": [
     "Indel",
@@ -17,7 +17,7 @@
   "author": "Raphael Zulliger <zulliger@software-natives.ch>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Software-Natives-OSS/luatransfer/issues"
+    "url": "https://github.com/Software-Natives-OSS/transferlua/issues"
   },
-  "homepage": "https://github.com/Software-Natives-OSS/luatransfer"
+  "homepage": "https://github.com/Software-Natives-OSS/transferlua"
 }
