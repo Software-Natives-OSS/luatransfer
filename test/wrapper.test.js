@@ -1,11 +1,13 @@
+"use strict";
+
 const assert = require('assert');
-const ref = require('ref-napi')
+const ref = require('ref-napi');
 
 const indelTestTarget = 'TransferLuaTest';
 const luaEndpoint = 'Default';
 
 function loadWrapper() {
-    return require("../index");
+    return require("../src/wrapper");
 }
 describe('require module', () => {
 
