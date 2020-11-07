@@ -4,7 +4,7 @@ const wrapper = require("./wrapper");
 const ref = require("ref-napi");
 
 
-const LuaTransfer = function (targetName, options = {}) {
+const TransferLua = function (targetName, options = {}) {
     const endpoint = options.endpoint || 'Default';
     const force = options.force || false;
 
@@ -19,7 +19,7 @@ const LuaTransfer = function (targetName, options = {}) {
     this.close = function () {
         if (this.opened()) {
             const err = wrapper.close(this._handle)
-            this._handleErr(err, 'LuaTransfer.close()')
+            this._handleErr(err, 'TransferLua.close()')
             this._handle = null;
         }
     }
@@ -44,7 +44,7 @@ const LuaTransfer = function (targetName, options = {}) {
 
     this._handleErr = function (err, operation) {
         if (err) {
-            throw new Error(`LuaTransfer error in '${operation}': ${err.toString(16)}`)
+            throw new Error(`TransferLua error in '${operation}': ${err.toString(16)}`)
         }
     }
 
@@ -52,7 +52,7 @@ const LuaTransfer = function (targetName, options = {}) {
         const openFct = force ? wrapper.forceOpen : wrapper.open;
         const handleRef = ref.alloc('size_t', -1/*initial value*/)
         const err = openFct(this._targetName, this._endpoint, handleRef, null)
-        this._handleErr(err, 'LuaTransfer._open()')
+        this._handleErr(err, 'TransferLua._open()')
         this._handle = handleRef.deref();
     }
 
@@ -72,7 +72,7 @@ const combineOptions = function (...options) {
 }
 
 module.exports = {
-    LuaTransfer: LuaTransfer,
+    TransferLua: TransferLua,
 
     combineOptions: combineOptions,
     OPTION_EXECUTE: "x",

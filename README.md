@@ -28,7 +28,7 @@ const luaStateName = 'Machine';
 const options = transferLua.combineOptions(
     transferLua.OPTION_EXECUTE);
  
-const transfer = new transferLua.LuaTransfer(indelTargetName, { force: true });
+const transfer = new transferLua.TransferLua(indelTargetName, { force: true });
 transfer.sendFile('./helloworld.lua', luaStateName, { options: options });
 transfer.close()
 ```
