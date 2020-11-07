@@ -76,16 +76,23 @@ describe('Test TransferLua SendFile', () => {
         this.transfer = null;
     });
 
-    it('SendFile and execute', () => {
+    it('Should be able to send and execute a valid Lua script', () => {
         const options = transferLua.combineOptions(transferLua.OPTION_EXECUTE);
         this.transfer.sendFile(getFileLocation('helloworld.lua'), this.stateName, { options: options });
     });
 
-    it('SendFile compile before sending and then execute', () => {
+    it('Should be able to compile locally and then send and execute a valid Lua script', () => {
         const options = transferLua.combineOptions(
             transferLua.OPTION_EXECUTE, 
             transferLua.OPTION_COMPILE_BEFORE);
         this.transfer.sendFile(getFileLocation('helloworld.lua'), this.stateName, { options: options });
+    });
+
+    it('Should not send a file with syntax error', () => {
+        const options = transferLua.combineOptions(transferLua.OPTION_EXECUTE);
+        assert.throws(() => {
+            this.transfer.sendFile(getFileLocation('syntax_error.lua'), this.stateName, { options: options });
+        });
     });
 
 });
