@@ -5,7 +5,7 @@ const transferLua = require("../src/transferlua");
 
 const indelTestTarget = 'TransferLuaTest';
 
-describe('Test TransferLua class', () => {
+describe('Test TransferLua open/close', () => {
 
     before(() => {
         // Ensure the target is in an "openable state"
@@ -55,6 +55,37 @@ describe('Test TransferLua class', () => {
         this.transfer = new transferLua.LuaTransfer(indelTestTarget);
         this.transfer = new transferLua.LuaTransfer(indelTestTarget, { force: true });
         assert.strictEqual(this.transfer.opened(), true, "Expect to be opened");
+    });
+
+});
+
+
+const getFileLocation = function (filename) {
+    return __dirname + '/' + filename;
+}
+
+describe('Test TransferLua SendFile', () => {
+
+    beforeEach(() => {
+        this.transfer = new transferLua.LuaTransfer(indelTestTarget, { force: true });
+        this.stateName = 'Machine';
+    });
+
+    afterEach(() => {
+        this.transfer.close();
+        this.transfer = null;
+    });
+
+    it('SendFile and execute', () => {
+        const options = transferLua.combineOptions(transferLua.OPTION_EXECUTE);
+        this.transfer.sendFile(getFileLocation('helloworld.lua'), this.stateName, { options: options });
+    });
+
+    it('SendFile compile before sending and then execute', () => {
+        const options = transferLua.combineOptions(
+            transferLua.OPTION_EXECUTE, 
+            transferLua.OPTION_COMPILE_BEFORE);
+        this.transfer.sendFile(getFileLocation('helloworld.lua'), this.stateName, { options: options });
     });
 
 });

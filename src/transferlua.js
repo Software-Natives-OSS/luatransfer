@@ -24,6 +24,14 @@ const LuaTransfer = function (targetName, options = {}) {
         }
     }
 
+    this.sendFile = function (fileLocation, stateName, options = {}) {
+        const taskName = options.taskName || null;
+        const dataOrModuleName = options.dataOrModuleName || null;
+        const sendOptions = options.options || "";
+        const err = wrapper.sendFile(this._handle, fileLocation, stateName, taskName, dataOrModuleName, sendOptions, null);
+        this._handleErr(err);
+    }
+
     this._handleErr = function (err, operation) {
         if (err) {
             throw new Error(`LuaTransfer error in '${operation}': ${err.toString(16)}`)
@@ -41,8 +49,22 @@ const LuaTransfer = function (targetName, options = {}) {
     this._open(force)
 }
 
-
+/** The 'options' are a concatenation of 'option characters', such as 'c' 
+ (compile before download), 'x' (execute after download), etc. This is a
+ helper function to concat these options by using the pre-defined constants
+ exposed by this module, see OPTION_EXECUTE, OPTION_COMPILE_BEFORE, etc. */
+const combineOptions = function (...options) {
+    var result = ''
+    for (const option of options) {
+        result += option;
+    }
+    return result;
+}
 
 module.exports = {
-    LuaTransfer: LuaTransfer
+    LuaTransfer: LuaTransfer,
+
+    combineOptions: combineOptions,
+    OPTION_EXECUTE: "x",
+    OPTION_COMPILE_BEFORE: "c"
 }
