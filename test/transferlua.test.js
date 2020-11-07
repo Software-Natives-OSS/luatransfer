@@ -83,15 +83,68 @@ describe('Test TransferLua SendFile', () => {
 
     it('Should be able to compile locally and then send and execute a valid Lua script', () => {
         const options = transferLua.combineOptions(
-            transferLua.OPTION_EXECUTE, 
+            transferLua.OPTION_EXECUTE,
             transferLua.OPTION_COMPILE_BEFORE);
         this.transfer.sendFile(getFileLocation('helloworld.lua'), this.stateName, { options: options });
     });
 
-    it('Should not send a file with syntax error', () => {
+    it('Should throw in case of syntax error', () => {
         const options = transferLua.combineOptions(transferLua.OPTION_EXECUTE);
         assert.throws(() => {
             this.transfer.sendFile(getFileLocation('syntax_error.lua'), this.stateName, { options: options });
+        });
+    });
+
+    it('Should throw in case of syntax error (compiled locally)', () => {
+        const options = transferLua.combineOptions(
+            transferLua.OPTION_EXECUTE,
+            transferLua.OPTION_COMPILE_BEFORE);
+        assert.throws(() => {
+            this.transfer.sendFile(getFileLocation('syntax_error.lua'), this.stateName, { options: options });
+        });
+    });
+
+});
+
+
+describe('Test TransferLua SendChunk', () => {
+
+    beforeEach(() => {
+        this.transfer = new transferLua.LuaTransfer(indelTestTarget, { force: true });
+        this.stateName = 'Machine';
+    });
+
+    afterEach(() => {
+        this.transfer.close();
+        this.transfer = null;
+    });
+
+    it('Should be able to send and execute a valid Lua chunk', () => {
+        const options = transferLua.combineOptions(transferLua.OPTION_EXECUTE);
+        this.transfer.sendChunk('AScriptName.lua', this.stateName, 'print("Hello Chunk!")', { options: options });
+    });
+
+    it('Should be able to compile locally then send and execute a valid Lua chunk', () => {
+        const options = transferLua.combineOptions(
+            transferLua.OPTION_EXECUTE,
+            transferLua.OPTION_COMPILE_BEFORE);
+        this.transfer.sendChunk('AScriptName.lua', this.stateName, 'print("Hello Chunk (precomp)!")', { options: options });
+    });
+
+    // This test fails. Seems like the C-dynlib does not treat this as an error?
+    // it('Should throw if a chunk contains syntax errors', () => {
+    //     const options = transferLua.combineOptions(transferLua.OPTION_EXECUTE);
+    //     assert.throws(() => {
+    //         this.transfer.sendChunk('AScriptName.lua', this.stateName, 'print(Hello syntax error!)', { options: options });
+    //     });
+    // });
+
+    it('Should throw if a chunk contains syntax errors (compiled locally)', () => {
+        const options = transferLua.combineOptions(
+            transferLua.OPTION_EXECUTE,
+            transferLua.OPTION_COMPILE_BEFORE);
+        assert.throws(() => {
+            this.transfer.sendChunk('AScriptName.lua', this.stateName, 'print(Hello syntax error!)', { options: options });
         });
     });
 

@@ -32,6 +32,16 @@ const LuaTransfer = function (targetName, options = {}) {
         this._handleErr(err);
     }
 
+    this.sendChunk = function (scriptName, stateName, luaChunk, options = {}) {
+        const taskName = options.taskName || null;
+        const dataOrModuleName = options.dataOrModuleName || null;
+        const sendOptions = options.options || "";
+        const err = wrapper.sendChunk(
+            this._handle, scriptName, stateName, taskName, dataOrModuleName, 
+            luaChunk, luaChunk.length, sendOptions, null);
+        this._handleErr(err);
+    }
+
     this._handleErr = function (err, operation) {
         if (err) {
             throw new Error(`LuaTransfer error in '${operation}': ${err.toString(16)}`)
